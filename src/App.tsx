@@ -1,25 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
+
+import LandingPage from './components/landingPage';
+import About from './components/about'
+import CarDetails from './components/CarDetails';
+import Footer from './components/Footer';
+import Header from './components/header';
+import Cars from './components/Cars';
+import Register from './components/Register';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="grid grid-rows-layout min-h-screen">
+        <Header />
+        <div className="row-content">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/About" element={<About />} />
+            <Route path="/Cars" element={<Cars />} />
+            <Route path="/Register" element={<Register />} />
+
+            <Route path="/cars/:carId" element={<CarDetails />} />
+          </Routes>
+        </div>
+      </div>
+      <Footer />
+    </BrowserRouter >
   );
 }
 
