@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FormEvent, useCallback } from "react";
 import axios from "axios";
-import { useDropzone } from "react-dropzone";
+import AddCarForm from "./AddCarForm";
 
 
 interface Car {
@@ -35,26 +35,6 @@ const AdminPanel: React.FC = () => {
         }
     };
 
-
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        await addCar({ make, model, year: parseInt(year), description, price });
-        setMake("");
-        setModel("");
-        setYear("");
-        setDescription('');
-        setPrice("");
-    };
-
-
-    const addCar = async (car: Omit<Car, "id">) => {
-        try {
-            await axios.post("http://localhost:3001/api/cars", car);
-            fetchCars();
-        } catch (error) {
-            console.error("Error adding car:", error);
-        }
-    };
 
     const updateCar = async (car: Car) => {
         console.log(car)
@@ -98,44 +78,13 @@ const AdminPanel: React.FC = () => {
         }
 
     };
-    //todo only images
-    const onDrop = useCallback(async (acceptedFiles: File[]) => {
-        // You can restrict file types or implement custom validations here
-        const file = acceptedFiles[0];
 
-        try {
-            const formData = new FormData();
-            if (file) {
-                formData.append("image", file);
-            }
-            formData.append("make", make);
-            formData.append("model", model);
-            formData.append("year", year);
-            formData.append("description", description);
-            formData.append("price", price);
-
-            const response = await axios.post("http://localhost:3001/api/cars", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-
-            console.log(response.data);
-
-            // Reset the form and fetch updated car list
-            setMake("");
-            setModel("");
-            setYear("");
-            setPrice("");
-            setDescription("");
-            fetchCars();
-        } catch (error) {
-            console.error("Error uploading car data:", error);
-        }
-    }, [make, model, year, price, description, fetchCars]);
+    const handleCarAdded = () => {
+        fetchCars();
+    };
 
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
 
 
 
@@ -144,107 +93,10 @@ const AdminPanel: React.FC = () => {
         <div className="min-h-screen bg-gray-800 text-white">
             <h1 className="text-4xl font-bold py-8 text-center">Admin Panel</h1>
             <div className="flex justify-center">
-                <form className="w-full max-w-md" onSubmit={handleSubmit}>
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
-                            <label className="block uppercase tracking-wide text-gray-300 text-xs font-bold mb-2" htmlFor="make">
-                                Make
-                            </label>
-                            <input
-                                className="appearance-none block w-full bg-gray-700 text-white border border-gray-600 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-600"
-                                id="make"
-                                type="text"
-                                value={make}
-                                onChange={(e) => setMake(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
-                            <label className="block uppercase tracking-wide text-gray-300 text-xs font-bold mb-2" htmlFor="model">
-                                Model
-                            </label>
-                            <input
-                                className="appearance-none block w-full bg-gray-700 text-white border border-gray-600 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-600"
-                                id="model"
-                                type="text"
-                                value={model}
-                                onChange={(e) => setModel(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
-                            <label className="block uppercase tracking-wide text-gray-300 text-xs font-bold mb-2" htmlFor="year">
-                                Year
-                            </label>
-                            <input
-                                className="appearance-none block w-full bg-gray-700 text-white border border-gray-600 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-600"
-                                id="year"
-                                type="number"
-                                value={year}
-                                onChange={(e) => setYear(e.target.value)}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
-                            <label className="block uppercase tracking-wide text-gray-300 text-xs font-bold mb-2" htmlFor="model">
-                                Description
-                            </label>
-                            <input
-                                className="appearance-none block w-full bg-gray-700 text-white border border-gray-600 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-600"
-                                id="description"
-                                type="text"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
-                            <label className="block uppercase tracking-wide text-gray-300 text-xs font-bold mb-2" htmlFor="model">
-                                Price
-                            </label>
-                            <input
-                                className="appearance-none block w-full bg-gray-700 text-white border border-gray-600 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-600"
-                                id="price"
-                                type="text"
-                                value={price}
-                                onChange={(e) => setPrice(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
-                            <label className="block uppercase tracking-wide text-gray-300 text-xs font-bold mb-2">
-                                Car Image
-                            </label>
-                            <div
-                                {...getRootProps()}
-                                className={`border-dashed border-2 p-4 text-center ${isDragActive ? "border-blue-500" : "border-gray-600"
-                                    }`}
-                            >
-                                <input {...getInputProps()} />
-                                {isDragActive ? (
-                                    <p>Drop the image here...</p>
-                                ) : (
-                                    <p>Drag and drop an image, or click to select a file</p>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                    <button
-                        className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit"
-                    >
-                        Add Car
-                    </button>
-                </form>
+                <AddCarForm onCarAdded={handleCarAdded} />
             </div>
 
-            <div className="mt-8">
+            <div className="mt-8" >
                 <h2 className="text-2xl font-bold mb-4 text-center">Car List</h2>
                 <div className="overflow-x-auto">
                     <table className="w-full text-center table-auto">
@@ -287,7 +139,7 @@ const AdminPanel: React.FC = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div >
             {selectedCar && (
                 <div className="mt-8">
                     <h2 className="text-2xl font-bold mb-4 text-center">
@@ -389,7 +241,7 @@ const AdminPanel: React.FC = () => {
                     </form>
                 </div>
             )}
-        </div>
+        </div >
     );
 };
 
