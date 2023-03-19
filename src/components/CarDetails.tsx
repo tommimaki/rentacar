@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Reservation from './Reservation';
+import Calendar from './Calendar';
+
 
 
 
@@ -18,6 +20,8 @@ interface Car {
 const CarDetails = () => {
     const { carId } = useParams<{ carId: string }>();
     const [car, setCar] = useState<Car | null>(null);
+    const [updateCalendar, setUpdateCalendar] = useState(false);
+
 
     useEffect(() => {
         const fetchCar = async () => {
@@ -33,6 +37,11 @@ const CarDetails = () => {
     }, [carId]);
 
     if (!car) return <p>Loading...</p>;
+
+
+    const handleReservationSuccess = () => {
+        setUpdateCalendar(prevState => !prevState);
+    };
 
     return (
         <div>
@@ -51,7 +60,8 @@ const CarDetails = () => {
                 <h2 className="text-2xl font-bold mb-2">${car.price} / päivä</h2>
                 <p>{car.description}</p>
             </div>
-            <Reservation carId={carId || ""} />
+            <Reservation carId={carId || ""} pricePerDay={Number(car.price)} onReservationSuccess={handleReservationSuccess} />
+            <Calendar carId={carId || ""} updateCalendar={updateCalendar} />
         </div>
     );
 };

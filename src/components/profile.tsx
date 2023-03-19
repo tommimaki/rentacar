@@ -9,6 +9,7 @@ interface UserData {
 
 const Profile = () => {
     const [userData, setUserData] = useState<UserData | null>(null);
+    const [reservations, setReservations] = useState([]);
 
     useEffect(() => {
         // Replace this with a call to your API to fetch user data
