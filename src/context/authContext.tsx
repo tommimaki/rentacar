@@ -14,7 +14,7 @@ interface Props {
 export const AuthContext = createContext<AuthContextType>({
     isLoggedIn: false,
     isAdmin: false,
-    userId: null,
+    userId: '',
     setLoggedIn: () => { },
 });
 

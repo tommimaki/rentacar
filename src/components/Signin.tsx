@@ -48,6 +48,11 @@ const SignIn = () => {
                 const isAdmin = decodedToken.isAdmin !== undefined ? decodedToken.isAdmin : false;
 
                 sessionStorage.setItem("userToken", token);
+                // SignIn.tsx
+                sessionStorage.setItem("userId", decodedToken.id);
+                console.log("Stored userId:", decodedToken.id); // Add this line to check the stored userId
+
+
                 navigate("/");
                 setLoggedIn(true, decodedToken.isAdmin, decodedToken.id);
 

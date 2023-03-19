@@ -21,7 +21,6 @@ const CarDetails = () => {
 
     useEffect(() => {
         const fetchCar = async () => {
-            console.log(carId)
             try {
                 const response = await axios.get(`http://localhost:3001/api/cars/${carId}`);
                 setCar(response.data);
@@ -52,7 +51,7 @@ const CarDetails = () => {
                 <h2 className="text-2xl font-bold mb-2">${car.price} / päivä</h2>
                 <p>{car.description}</p>
             </div>
-            <Reservation />
+            <Reservation carId={carId || ""} />
         </div>
     );
 };

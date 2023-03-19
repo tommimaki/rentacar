@@ -7,19 +7,21 @@ interface ReservationProps {
     userId: string;
 }
 
-function Reservation() {
+function Reservation({ carId }: { carId: string }) {
     const { userId } = useContext(AuthContext);
-    const [carId, setCarId] = useState('');
+
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [totalPrice, setTotalPrice] = useState('');
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+
         event.preventDefault();
         try {
+            console.log(userId)
             const response = await axios.post(`http://localhost:3001/api/reservations`, {
                 user: userId,
-                carId,
+                car: carId,
                 startDate,
                 endDate,
                 totalPrice,
@@ -34,18 +36,7 @@ function Reservation() {
         <form onSubmit={handleSubmit} className="bg-gray-900 p-6 rounded-lg">
             <h2 className="text-2xl text-white font-bold mb-4">Create Reservation</h2>
 
-            <div className="flex flex-col mb-4">
-                <label htmlFor="car-id" className="text-white font-bold mb-2">
-                    Car ID:
-                </label>
-                <input
-                    type="text"
-                    id="car-id"
-                    value={carId}
-                    onChange={(e) => setCarId(e.target.value)}
-                    className="bg-gray-800 rounded-lg py-2 px-3 text-white"
-                />
-            </div>
+
             <div className="flex flex-col mb-4">
                 <label htmlFor="start-date" className="text-white font-bold mb-2">
                     Start Date:
