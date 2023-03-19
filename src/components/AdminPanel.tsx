@@ -10,6 +10,8 @@ interface Car {
     year: number;
     description: string;
     price: string,
+    imageUrl: string;
+
 }
 
 const AdminPanel: React.FC = () => {
@@ -30,6 +32,12 @@ const AdminPanel: React.FC = () => {
         try {
             const response = await axios.get("http://localhost:3001/api/cars");
             setCars(response.data);
+
+            cars.forEach(car => {
+                console.log(car);
+
+
+            });
         } catch (error) {
             console.error("Error fetching cars:", error);
         }
@@ -61,6 +69,8 @@ const AdminPanel: React.FC = () => {
         setMake(car.make);
         setModel(car.model);
         setYear(car.year.toString());
+        setDescription(car.description);
+        setPrice(car.price);
     };
 
 
@@ -108,16 +118,21 @@ const AdminPanel: React.FC = () => {
                                 <th className="px-4 py-2">Description</th>
                                 <th className="px-4 py-2">Price</th>
                                 <th className="px-4 py-2">Actions</th>
+                                <th className="px-4 py-2">img</th>
                             </tr>
                         </thead>
                         <tbody>
                             {cars.map((car) => (
+
+
+
                                 <tr className="bg-gray-600 text-gray-300" key={car.id}>
                                     <td className="border px-4 py-2">{car.make}</td>
                                     <td className="border px-4 py-2">{car.model}</td>
                                     <td className="border px-4 py-2">{car.year}</td>
                                     <td className="border px-4 py-2">{car.description}</td>
                                     <td className="border px-4 py-2">{car.price}</td>
+
                                     <td className="border px-4 py-2">
                                         {/* Add buttons for update and delete actions */}
                                         <button
@@ -133,6 +148,14 @@ const AdminPanel: React.FC = () => {
                                         >
                                             Delete
                                         </button>
+                                    </td>
+                                    <td className="border px-4 py-2">
+                                        {car.imageUrl ? (
+                                            <img className=" w-1/4 h-1/4" src={`http://localhost:3001${car.imageUrl}`} alt={`${make} ${model}`} />
+
+                                        ) : (
+                                            <td className="border px-4 py-2">No image</td>
+                                        )}
                                     </td>
                                 </tr>
                             ))}
