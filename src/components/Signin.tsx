@@ -6,6 +6,7 @@ import { AuthContext } from '../context/authContext';
 
 interface DecodedToken {
     isAdmin: boolean;
+    id: string
     // Add any other properties from your decoded token here
 }
 
@@ -48,7 +49,9 @@ const SignIn = () => {
 
                 sessionStorage.setItem("userToken", token);
                 navigate("/");
-                setLoggedIn(true, isAdmin);
+                setLoggedIn(true, decodedToken.isAdmin, decodedToken.id);
+
+
                 console.log("User is admin:", isAdmin);
                 console.log("Token:", token);
             } else {
