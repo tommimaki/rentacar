@@ -4,6 +4,8 @@ import AddCarForm from "./AddCarForm";
 import UpdateCarForm from './UpdateCarForm';
 import CarTable from './CarTable';
 import UserList from "./UserList";
+import ReservationList from "./Reservationlist";
+import Reservation from './Reservation';
 
 
 
@@ -28,18 +30,14 @@ const AdminPanel: React.FC = () => {
     //selected car for update
     const [selectedCar, setSelectedCar] = useState<Car | null>(null);
     const [showAddCarForm, setShowAddCarForm] = useState(false);
+    const [reservations, setReservations] = useState([]);
 
-    useEffect(() => {
-        fetchCars();
-    }, []);
 
     const fetchCars = async () => {
         try {
             const response = await axios.get("http://localhost:3001/api/cars");
             setCars(response.data);
-            cars.forEach(car => {
-                console.log(car);
-            });
+
         } catch (error) {
             console.error("Error fetching cars:", error);
         }
@@ -107,12 +105,30 @@ const AdminPanel: React.FC = () => {
 
 
 
+    const fetchReservations = async () => {
+        const response = await fetch(`http://localhost:3001/api/reservations`);
+
+        console.log("Reservations response:", response);
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Reservations data:", data);
+            setReservations(data);
+        }
+    };
+
+
+    useEffect(() => {
+        fetchCars();
+        fetchReservations();
+    }, []);
+
 
     return (
         <div className="min-h-screen bg-gray-800 text-white">
             <h1 className="text-4xl font-bold py-8 text-center">Admin Panel</h1>
             <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto mb-4"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
                 onClick={() => setShowAddCarForm(!showAddCarForm)}
             >
                 {showAddCarForm ? ' Cancel' : 'Add a new Car'}
@@ -124,7 +140,7 @@ const AdminPanel: React.FC = () => {
             </div>
 
             <div className="mt-8" >
-                <h2 className="text-2xl font-bold mb-4 text-center">Cars we rent</h2>
+                <h2 className="text-2xl font-bold mb-4 text-center">Rental Cars</h2>
                 <div className="overflow-x-auto">
                     <CarTable cars={cars} selectCar={selectCar} deleteCar={deleteCar} />
 
@@ -147,8 +163,10 @@ const AdminPanel: React.FC = () => {
                 />
             )}
 
-
+            <h1 className="text-2xl font-bold m-10 text-center"> users:</h1>
             <UserList />
+            <h2 className="text-2xl font-bold m-10 text-center"> customer Reservations:</h2>
+            <ReservationList reservations={reservations} />
         </div >
     );
 };

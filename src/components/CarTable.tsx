@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Car } from './AdminPanel';
+
 
 interface CarTableProps {
     cars: Car[];
@@ -8,6 +9,8 @@ interface CarTableProps {
 }
 
 const CarTable: React.FC<CarTableProps> = ({ cars, selectCar, deleteCar }) => {
+    const [showMore, setShowMore] = useState('');
+
     return (
         <div className="overflow-x-auto">
             <table className="w-full text-center table-auto">
@@ -31,7 +34,7 @@ const CarTable: React.FC<CarTableProps> = ({ cars, selectCar, deleteCar }) => {
                             <td className="border px-4 py-2">{car.make}</td>
                             <td className="border px-4 py-2">{car.model}</td>
                             <td className="border px-4 py-2">{car.year}</td>
-                            <td className="border px-4 py-2">{car.description}</td>
+                            <td className="border text-xs px-4 py-2">{car.description}</td>
                             <td className="border px-4 py-2">{car.price}</td>
 
                             <td className="border px-4 py-2">
