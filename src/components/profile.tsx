@@ -67,21 +67,7 @@ const Profile = () => {
         }
     };
 
-    const deleteUserData = async () => {
-        try {
-            const response = await fetch(`http://localhost:3001/api/users/${userId}`, {
-                method: 'DELETE'
-            });
 
-            console.log("Delete user data response:", response);
-
-            if (response.ok) {
-                setUserData(null);
-            }
-        } catch (error) {
-            console.error("Error deleting user data:", error);
-        }
-    };
 
     const fetchReservations = async () => {
         const response = await fetch(`http://localhost:3001/api/reservations/user/${userId}`);
@@ -175,14 +161,6 @@ const Profile = () => {
                                 >
                                     Save
                                 </button>
-                                {/* TODO// when user deletes info, delete account and logout */}
-                                {/* <button
-                                    type="button"
-                                    className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-                                    onClick={() => deleteUserData()}
-                                >
-                                    Delete
-                                </button> */}
                             </div>
 
                         </form>

@@ -3,7 +3,7 @@ import axios from "axios";
 import AddCarForm from "./AddCarForm";
 import UpdateCarForm from './UpdateCarForm';
 import CarTable from './CarTable';
-
+import UserList from "./UserList";
 
 
 
@@ -57,12 +57,14 @@ const AdminPanel: React.FC = () => {
     };
 
     const deleteCar = async (carId: string) => {
-        try {
-            await axios.delete(`http://localhost:3001/api/cars/${carId}`);
-            console.log(carId + ' deleted')
-            fetchCars();
-        } catch (error) {
-            console.error("Error deleting car:", error);
+        if (window.confirm(`Are you sure you want to the car?`)) {
+            try {
+                await axios.delete(`http://localhost:3001/api/cars/${carId}`);
+                console.log(carId + ' deleted')
+                fetchCars();
+            } catch (error) {
+                console.error("Error deleting car:", error);
+            }
         }
     };
 
@@ -145,6 +147,8 @@ const AdminPanel: React.FC = () => {
                 />
             )}
 
+
+            <UserList />
         </div >
     );
 };
