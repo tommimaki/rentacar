@@ -21,14 +21,18 @@ interface ReservationListProps {
 function ReservationList({ reservations }: ReservationListProps) {
     const [displayReservations, setDisplayReservations] = useState<Reservation[]>([]);
 
-    const deleteReservation = async (id: string) => {
-        try {
-            await axios.delete(`http://localhost:3001/api/reservations/${id}`);
-            console.log(id + ' deleted')
-            const updatedReservations = displayReservations.filter((reservation) => reservation.id !== id);
-            setDisplayReservations(updatedReservations);
-        } catch (error) {
-            console.error("Error deleting reservation:", error);
+    const deleteReservation = async (id: string, carMake: string, carModel: string) => {
+
+        if (window.confirm(`Are you sure you want to cancel your reservation for the ${carMake} ${carModel}? It's a stellar car`)) {
+
+            try {
+                await axios.delete(`http://localhost:3001/api/reservations/${id}`);
+                console.log(id + ' deleted')
+                const updatedReservations = displayReservations.filter((reservation) => reservation.id !== id);
+                setDisplayReservations(updatedReservations);
+            } catch (error) {
+                console.error("Error deleting reservation:", error);
+            }
         }
     };
 
@@ -42,7 +46,7 @@ function ReservationList({ reservations }: ReservationListProps) {
 
 
             {Array.isArray(displayReservations) ? (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4">
+                <div className="grid  grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4">
                     {displayReservations.map((reservation: unknown, index: number) => {
                         if (typeof reservation === "object" && reservation !== null) {
                             const { carMake, carModel, startDate, endDate, totalPrice, id } = reservation as Reservation;
@@ -57,7 +61,7 @@ function ReservationList({ reservations }: ReservationListProps) {
                                     <p className="mb-2">Start Date: {formattedStartDate}</p>
                                     <p className="mb-2">End Date: {formattedEndDate}</p>
                                     <p className="mb-2">Total Price: {`${totalPrice}€`}</p>
-                                    <button className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 md:mb-0 md:mr-2" onClick={() => deleteReservation(id)}>Delete</button>
+                                    <button className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 md:mb-0 md:mr-2" onClick={() => deleteReservation(id, carMake, carModel)}>Delete</button>
                                 </div>
                             );
                         }

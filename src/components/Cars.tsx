@@ -46,7 +46,7 @@ const Cars = () => {
     return (
 
 
-        <div className="h-screen px-4 py-12 md:px-12 md:py-24 bg-gray-100">
+        <div className="h-screen px-4 py-12 md:px-12 mb-100 md:py-24 bg-gray-100">
             <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Autot</h2>
             <div className="max-w-5xl mx-auto">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4">

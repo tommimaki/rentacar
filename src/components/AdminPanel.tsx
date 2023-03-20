@@ -127,12 +127,6 @@ const AdminPanel: React.FC = () => {
     return (
         <div className="min-h-screen bg-gray-800 text-white">
             <h1 className="text-4xl font-bold py-8 text-center">Admin Panel</h1>
-            <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
-                onClick={() => setShowAddCarForm(!showAddCarForm)}
-            >
-                {showAddCarForm ? ' Cancel' : 'Add a new Car'}
-            </button>
 
             <div className="flex justify-center">
                 {showAddCarForm && <AddCarForm onCarAdded={handleCarAdded} />}
@@ -140,7 +134,16 @@ const AdminPanel: React.FC = () => {
             </div>
 
             <div className="mt-8" >
-                <h2 className="text-2xl font-bold mb-4 text-center">Rental Cars</h2>
+                <div className="flex flex-col">
+
+                    <h2 className="text-2xl font-bold text-center">Rental Cars</h2>
+                    <button
+                        className="bg-blue-500 w-40 hover:bg-blue-700 text-white font-bold py-2  self-center px-4 rounded focus:outline-none focus:shadow-outline "
+                        onClick={() => setShowAddCarForm(!showAddCarForm)}
+                    >
+                        {showAddCarForm ? ' Cancel' : 'Add a new Car'}
+                    </button>
+                </div>
                 <div className="overflow-x-auto">
                     <CarTable cars={cars} selectCar={selectCar} deleteCar={deleteCar} />
 

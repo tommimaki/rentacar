@@ -90,26 +90,28 @@ const Profile = () => {
     }, [userId]);
 
     return (
-        <div className="mt-20">
+        <div className="mt-20 flex justify-center align-center">
             {userData ? (
-                <div className="bg-gray-800 text-white p-6 rounded-md shadow-lg">
+
+                <div className=" w-min  p-6 flex flex-col justify-center align-center rounded-md shadow-lg">
+
                     <div>
-                        <h2 className="text-2xl font-bold mb-4">
+                        <h2 className="text- mb-4">
                             user: {userData?.first_name} {userData?.last_name}
                         </h2>
-                        <h2 className="text-2xl font-bold mb-4">
+                        <h2 className=" mb-4">
                             email:  {userData?.email}
                         </h2>
-                        <h2 className="text-2xl font-bold mb-4">
+                        <h2 className=" font-bold mb-4">
                             phone:   {userData?.phonenumber}
                         </h2>
+                        <button
+                            className="focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-4"
+                            onClick={() => setShowUpdateForm(!showUpdateForm)}
+                        >
+                            {showUpdateForm ? "Cancel" : "Update User Data"}
+                        </button>
                     </div>
-                    <button
-                        className="focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-4"
-                        onClick={() => setShowUpdateForm(!showUpdateForm)}
-                    >
-                        {showUpdateForm ? "Cancel" : "Update User Data"}
-                    </button>
                     {showUpdateForm && (
                         <form className="mb-4">
 
@@ -165,8 +167,11 @@ const Profile = () => {
 
                         </form>
                     )}
-                    <h2 className="text-2xl text-center font-bold mt-8 mb-4">Reservations:</h2>
-                    <ReservationList reservations={reservations} />
+                    <div>
+
+                        <h2 className="text-2xl text-center font-bold mt-8 mb-4">Reservations:</h2>
+                        <ReservationList reservations={reservations} />
+                    </div>
                 </div>
             ) : (
                 <p>Loading user data...</p>

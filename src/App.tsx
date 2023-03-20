@@ -17,28 +17,31 @@ import AdminPanel from './components/AdminPanel';
 
 function App() {
   return (
-    <AuthProvider >
+    <AuthProvider  >
 
       <BrowserRouter>
-        <div className="grid grid-rows-layout min-h-screen">
-          <Header />
-          <div className="row-content">
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/Adminpanel" element={<AdminPanel />} />
-              <Route path="/About" element={<About />} />
-              <Route path="/Cars" element={<Cars />} />
-              <Route path="/Register" element={<Register />} />
-              <Route path="/Signin" element={<Signin />} />
-              <Route path="/Profile" element={<Profile />} />
+        <div className='relative'>
 
-              <Route path="/cars/:carId" element={<CarDetails />} />
-            </Routes>
+          <div className="grid grid-rows-layout min-h-screen">
+            <Header />
+            <div className="row-content">
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/Adminpanel" element={<AdminPanel />} />
+                <Route path="/About" element={<About />} />
+                <Route path="/Cars" element={<Cars />} />
+                <Route path="/Register" element={<Register />} />
+                <Route path="/Signin" element={<Signin />} />
+                <Route path="/Profile" element={<Profile />} />
+
+                <Route path="/cars/:carId" element={<CarDetails />} />
+              </Routes>
+            </div>
+            <Footer />
           </div>
         </div>
-        <Footer />
       </BrowserRouter >
-    </AuthProvider>
+    </AuthProvider >
   );
 }
 
