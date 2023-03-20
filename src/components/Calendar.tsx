@@ -49,10 +49,12 @@ const Calendar: React.FC<CalendarProps> = ({ carId, updateCalendar }) => {
                     start: "prev,next today",
                     center: "title",
                     end: "dayGridMonth,timeGridWeek,timeGridDay",
+
                 }}
                 events={events}
-                eventColor="#378006"
+                eventColor="red"
                 eventTextColor="#FFFFFF"
+
             />
         </div>
     );

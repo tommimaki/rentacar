@@ -17,3 +17,14 @@
     min-height: 0;
   }
 }
+
+.fc-toolbar-title {
+  color: white;
+}
+
+.fc-daygrid-day-number {
+  color: white;
+}
+.fc-daygrid-day-top {
+  color: white;
+}
