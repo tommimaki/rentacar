@@ -148,17 +148,11 @@ function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carMod
                 </div>
                 <div className="flex flex-col mb-4">
                     <label htmlFor="total-price" className="text-white font-bold mb-2">
-                        Total Price:
+                        <h3>  Total Price:  {totalPrice} € </h3>
                     </label>
-                    <input
-                        type="number"
-                        id="total-price"
-                        value={totalPrice}
-                        readOnly
-                        className="bg-gray-800 rounded-lg py-2 px-3 text-white"
-                    />
 
                 </div>
+
                 <button type="submit" className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
                     Create Reservation
                 </button>

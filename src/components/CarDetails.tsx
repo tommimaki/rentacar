@@ -42,35 +42,43 @@ const CarDetails = () => {
     const handleReservationSuccess = () => {
         setUpdateCalendar(prevState => !prevState);
     };
-
     return (
         <div>
-            <div className="p-4">
+            <div className="bg-gray-100 rounded-lg overflow-hidden justify-center shadow-lg mx-4 my-8 md:mx-0 md:my-0 ">
                 <div className="relative">
                     <img
                         src={`http://localhost:3001${car.imageUrl}`}
                         alt={`${car.make} ${car.model}`}
-                        className="h-auto mb-4 object-cover"
+                        className="h-auto w-full object-cover max-h-screen max-h-3/4"
                     />
-                    <h1 className="absolute top-0 left-0 right-0 text-2xl lg:text-6xl font-bold px-4 py-2 bg-gray-900 text-center text-white opacity-90">
+                    <h1 className="absolute bottom-0 left-0 right-0 text-2xl lg:text-6xl font-bold px-4 py-2 bg-gray-900 text-center text-white opacity-90">
                         {`${car.make} ${car.model}`}
                     </h1>
                 </div>
-                <h2 className="text-2xl font-bold mb-2">${car.price} / päivä</h2>
-                <p>{car.description}</p>
+                <div className="p-4 flex flex-col text-center justify-between">
+                    <div>
+                        <h2 className="text-2xl  font-bold mb-2">${car.price} / päivä</h2>
+                        <p>{car.description}</p>
+                    </div>
+                </div>
             </div>
-            <div className="flex-col md:flex">
-                <Reservation
-                    carId={carId || ""}
-                    pricePerDay={Number(car.price)}
-                    onReservationSuccess={handleReservationSuccess}
-                    carMake={car.make}
-                    carModel={car.model}
-                />
-                <Calendar carId={carId || ""} updateCalendar={updateCalendar} />
+            <div className="flex flex-col md:flex-row bg-gray-900">
+                <div className="flex-grow md:mr-4">
+                    <Reservation
+                        carId={carId || ""}
+                        pricePerDay={Number(car.price)}
+                        onReservationSuccess={handleReservationSuccess}
+                        carMake={car.make}
+                        carModel={car.model}
+                    />
+                </div>
+                <div className="flex-grow md:ml-4">
+                    <Calendar carId={carId || ""} updateCalendar={updateCalendar} />
+                </div>
             </div>
         </div>
     );
+
 };
 
 export default CarDetails;

@@ -112,7 +112,7 @@ const Profile = () => {
                             user: {userData?.first_name} {userData?.last_name}
                         </h2>
                         <h2 className="text-2xl font-bold mb-4">
-                            email:  {userData?.email} {userData?.phonenumber}
+                            email:  {userData?.email}
                         </h2>
                         <h2 className="text-2xl font-bold mb-4">
                             phone:   {userData?.phonenumber}

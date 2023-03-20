@@ -91,6 +91,7 @@ const AdminPanel: React.FC = () => {
     };
 
     const handleCarAdded = () => {
+        setShowAddCarForm(false);
         fetchCars();
     };
     const handleCancel = () => {
@@ -112,7 +113,7 @@ const AdminPanel: React.FC = () => {
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto mb-4"
                 onClick={() => setShowAddCarForm(!showAddCarForm)}
             >
-                {showAddCarForm ? 'Hide Add Car Form' : 'Show Add Car Form'}
+                {showAddCarForm ? ' Cancel' : 'Add a new Car'}
             </button>
 
             <div className="flex justify-center">
@@ -121,7 +122,7 @@ const AdminPanel: React.FC = () => {
             </div>
 
             <div className="mt-8" >
-                <h2 className="text-2xl font-bold mb-4 text-center">Car List</h2>
+                <h2 className="text-2xl font-bold mb-4 text-center">Cars we rent</h2>
                 <div className="overflow-x-auto">
                     <CarTable cars={cars} selectCar={selectCar} deleteCar={deleteCar} />
 
