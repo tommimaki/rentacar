@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Car } from './AdminPanel';
+import ShowMoreText from "react-show-more-text";
+
 
 
 interface CarTableProps {
@@ -9,7 +11,8 @@ interface CarTableProps {
 }
 
 const CarTable: React.FC<CarTableProps> = ({ cars, selectCar, deleteCar }) => {
-    const [showMore, setShowMore] = useState('');
+    const [showMore, setShowMore] = useState(false);
+
 
     return (
         <div className="overflow-x-auto">
@@ -34,7 +37,14 @@ const CarTable: React.FC<CarTableProps> = ({ cars, selectCar, deleteCar }) => {
                             <td className="border px-4 py-2">{car.make}</td>
                             <td className="border px-4 py-2">{car.model}</td>
                             <td className="border px-4 py-2">{car.year}</td>
-                            <td className="border text-xs px-4 py-2">{car.description}</td>
+                            <td className="border text-xs px-4 py-2"><div className="text" key={car.id} >
+
+                                {/* //TODO, MAKE READONLY SEPERATE FOR EACH */}
+                                {showMore ? car.description : `${car.description.substring(0, 50)}...`}
+                                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline mr-2" onClick={() => setShowMore(!showMore)}>
+                                    {showMore ? "show less" : "  read more"}
+                                </button>
+                            </div></td>
                             <td className="border px-4 py-2">{car.price}</td>
 
                             <td className="border px-4 py-2">
