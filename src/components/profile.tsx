@@ -11,14 +11,21 @@ interface UserData {
 
 interface Reservation {
     car: string;
+    carMake: string;
+    carModel: string;
     startDate: string;
     endDate: string;
     totalPrice: number;
+    id: string;
 }
+
+
 const Profile = () => {
     const [userData, setUserData] = useState<UserData | null>(null);
-    const [reservations, setReservations] = useState([]);
+    const [reservations, setReservations] = useState<Reservation[]>([]);
     const { userId } = useContext(AuthContext);
+    const [showUpdateForm, setShowUpdateForm] = useState(false);
+
 
     const fetchUserData = async () => {
         const userToken = sessionStorage.getItem("userToken");
@@ -38,6 +45,44 @@ const Profile = () => {
             setUserData(data);
         }
     };
+
+    const updateUserData = async (updatedData: UserData) => {
+        try {
+            const response = await fetch(`http://localhost:3001/api/users/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedData)
+            });
+
+            console.log("Update user data response:", response);
+
+            if (response.ok) {
+                setUserData(updatedData);
+                setShowUpdateForm(false)
+            }
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
+    };
+
+    const deleteUserData = async () => {
+        try {
+            const response = await fetch(`http://localhost:3001/api/users/${userId}`, {
+                method: 'DELETE'
+            });
+
+            console.log("Delete user data response:", response);
+
+            if (response.ok) {
+                setUserData(null);
+            }
+        } catch (error) {
+            console.error("Error deleting user data:", error);
+        }
+    };
+
     const fetchReservations = async () => {
         const response = await fetch(`http://localhost:3001/api/reservations/user/${userId}`);
 
@@ -50,7 +95,6 @@ const Profile = () => {
         }
     };
 
-
     useEffect(() => {
         fetchUserData();
 
@@ -58,22 +102,99 @@ const Profile = () => {
             fetchReservations();
         }
     }, [userId]);
+
     return (
         <div className="mt-20">
-            <div className="bg-gray-800 text-white p-6 rounded-md shadow-lg">
-                <h2 className="text-2xl font-bold mb-4">
-                    {userData?.first_name} {userData?.last_name}
-                </h2>
-                <p className="mb-2">
-                    <span className="font-semibold">Email:</span> {userData?.email}
-                </p>
-                <p className="mb-4">
-                    <span className="font-semibold">Phone Number:</span> {userData?.phonenumber}
-                </p>
-            </div>
-            <h2 className="text-2xl text-center font-bold mt-8 mb-4">Reservations:</h2>
-            <ReservationList reservations={reservations} />
+            {userData ? (
+                <div className="bg-gray-800 text-white p-6 rounded-md shadow-lg">
+                    <div>
+                        <h2 className="text-2xl font-bold mb-4">
+                            user: {userData?.first_name} {userData?.last_name}
+                        </h2>
+                        <h2 className="text-2xl font-bold mb-4">
+                            email:  {userData?.email} {userData?.phonenumber}
+                        </h2>
+                        <h2 className="text-2xl font-bold mb-4">
+                            phone:   {userData?.phonenumber}
+                        </h2>
+                    </div>
+                    <button
+                        className="focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-4"
+                        onClick={() => setShowUpdateForm(!showUpdateForm)}
+                    >
+                        {showUpdateForm ? "Cancel" : "Update User Data"}
+                    </button>
+                    {showUpdateForm && (
+                        <form className="mb-4">
+
+                            <div className="flex flex-col mb-4">
+                                <label className="font-semibold mb-2" htmlFor="first-name-input">First Name:</label>
+                                <input
+                                    type="text"
+                                    id="first-name-input"
+                                    className="border rounded-md py-2 px-3"
+                                    value={userData.first_name}
+                                    onChange={(event) => setUserData({ ...userData, first_name: event.target.value })}
+                                />
+                            </div>
+                            <div className="flex flex-col mb-4">
+                                <label className="font-semibold mb-2" htmlFor="last-name-input">Last Name:</label>
+                                <input
+                                    type="text"
+                                    id="last-name-input"
+                                    className="border rounded-md py-2 px-3"
+                                    value={userData.last_name}
+                                    onChange={(event) => setUserData({ ...userData, last_name: event.target.value })}
+                                />
+                            </div>
+                            <div className="flex flex-col mb-4">
+                                <label className="font-semibold mb-2" htmlFor="email-input">Email:</label>
+                                <input
+                                    type="email"
+                                    id="email-input"
+                                    className="border rounded-md py-2 px-3"
+                                    value={userData.email}
+                                    onChange={(event) => setUserData({ ...userData, email: event.target.value })}
+                                />
+                            </div>
+                            <div className="flex flex-col mb-4">
+                                <label className="font-semibold mb-2" htmlFor="phone-number-input">Phone Number:</label>
+                                <input
+                                    type="tel"
+                                    id="phone-number-input"
+                                    className="border rounded-md py-2 px-3"
+                                    value={userData.phonenumber}
+                                    onChange={(event) => setUserData({ ...userData, phonenumber: event.target.value })}
+                                />
+                            </div>
+                            <div className="flex justify-between">
+                                <button
+                                    type="button"
+                                    className="focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                                    onClick={() => updateUserData(userData)}
+                                >
+                                    Save
+                                </button>
+                                {/* TODO// when user deletes info, delete account and logout */}
+                                {/* <button
+                                    type="button"
+                                    className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                                    onClick={() => deleteUserData()}
+                                >
+                                    Delete
+                                </button> */}
+                            </div>
+
+                        </form>
+                    )}
+                    <h2 className="text-2xl text-center font-bold mt-8 mb-4">Reservations:</h2>
+                    <ReservationList reservations={reservations} />
+                </div>
+            ) : (
+                <p>Loading user data...</p>
+            )}
         </div>
     );
+
 };
 export default Profile;

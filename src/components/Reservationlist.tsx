@@ -16,14 +16,6 @@ interface ReservationListProps {
     reservations: Reservation[];
 }
 
-// const updateReservation = async (reservation: Reservation) => {
-//     console.log(reservation)
-//     try {
-//         await axios.put(`http://localhost:3001/api/reservations/${reservation.id}`, { car, startDate, endDate, totalPrice, id });
-//     } catch (error) {
-//         console.error("Error updating reservation:", error);
-//     }
-// };
 
 
 function ReservationList({ reservations }: ReservationListProps) {
@@ -33,7 +25,8 @@ function ReservationList({ reservations }: ReservationListProps) {
         try {
             await axios.delete(`http://localhost:3001/api/reservations/${id}`);
             console.log(id + ' deleted')
-            // fetchCars();
+            const updatedReservations = displayReservations.filter((reservation) => reservation.id !== id);
+            setDisplayReservations(updatedReservations);
         } catch (error) {
             console.error("Error deleting reservation:", error);
         }
@@ -43,35 +36,39 @@ function ReservationList({ reservations }: ReservationListProps) {
         setDisplayReservations(reservations);
     }, [reservations]);
 
+
     return (
         <div className="bg-gray-800 text-white p-6 rounded-md shadow-lg">
             {Array.isArray(displayReservations) ? (
-                displayReservations.map((reservation: unknown, index: number) => {
-                    if (typeof reservation === "object" && reservation !== null) {
-                        const { car, carMake, carModel, startDate, endDate, totalPrice, id } = reservation as Reservation;
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                    {displayReservations.map((reservation: unknown, index: number) => {
+                        if (typeof reservation === "object" && reservation !== null) {
+                            const { car, carMake, carModel, startDate, endDate, totalPrice, id } = reservation as Reservation;
+                            const formattedStartDate = new Date(startDate).toISOString().slice(0, 10);
+                            const formattedEndDate = new Date(endDate).toISOString().slice(0, 10);
 
-                        return (
-                            <div key={index} className="border-b border-gray-600 pb-4 mb-4">
-                                <h3 className="text-xl font-bold mb-2">Reservation {index + 1}</h3>
-                                {/* <p>Car ID: {car}</p> */}
-                                <p>Car Make: {carMake}</p>
-                                <p>Car model: {carModel}</p>
-                                <p>Start Date: {startDate}</p>
-                                <p>End Date: {endDate}</p>
-                                <p>Total Price: {totalPrice}</p>
-                                <button className="text-red" onClick={() => deleteReservation(id)}>  delete </button>
+                            return (
+                                <div key={index} className="border-b border-gray-600 pb-4 mb-4">
+                                    <h3 className="text-xl font-bold mb-2">Reservation {index + 1}</h3>
+                                    <p className="mb-2">Car Make: {carMake}</p>
+                                    <p className="mb-2">Car model: {carModel}</p>
+                                    <p className="mb-2">Start Date: {formattedStartDate}</p>
+                                    <p className="mb-2">End Date: {formattedEndDate}</p>
+                                    <p className="mb-2">Total Price: {`${totalPrice}€`}</p>
+                                    <button className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 md:mb-0 md:mr-2" onClick={() => deleteReservation(id)}>Delete</button>
+                                </div>
+                            );
+                        }
 
-                            </div>
-                        );
-                    }
-
-                    return null;
-                })
+                        return null;
+                    })}
+                </div>
             ) : (
                 <p>Loading reservations...</p>
             )}
         </div>
     );
+
 }
 
 export default ReservationList;

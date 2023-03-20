@@ -15,10 +15,12 @@ const Calendar: React.FC<CalendarProps> = ({ carId, updateCalendar }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log(carId)
                 const response = await fetch(`http://localhost:3001/api/reservations/car/${carId}`);
                 if (response.ok) {
                     const reservationsData = await response.json();
                     setReservations(reservationsData);
+                    console.log(reservationsData)
                 } else {
                     console.error("Error fetching reservations:", await response.json());
                 }
