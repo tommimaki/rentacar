@@ -37,9 +37,9 @@ function App() {
                 <Route path="/cars/:carId" element={<CarDetails />} />
               </Routes>
             </div>
-            <Footer />
           </div>
         </div>
+        {/* <Footer /> */}
       </BrowserRouter >
     </AuthProvider >
   );

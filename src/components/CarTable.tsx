@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Car } from './AdminPanel';
-import ShowMoreText from "react-show-more-text";
+
 
 
 
@@ -12,8 +12,15 @@ interface CarTableProps {
 
 const CarTable: React.FC<CarTableProps> = ({ cars, selectCar, deleteCar }) => {
     const [showMore, setShowMore] = useState(false);
+    const [showMoreMap, setShowMoreMap] = useState<{ [id: string]: boolean }>({});
 
 
+    const toggleShowMore = (id: string) => {
+        setShowMoreMap(prevState => ({
+            ...prevState,
+            [id]: !prevState[id]
+        }));
+    };
     return (
         <div className="overflow-x-auto">
             <table className="w-full text-center table-auto">
@@ -37,14 +44,17 @@ const CarTable: React.FC<CarTableProps> = ({ cars, selectCar, deleteCar }) => {
                             <td className="border px-4 py-2">{car.make}</td>
                             <td className="border px-4 py-2">{car.model}</td>
                             <td className="border px-4 py-2">{car.year}</td>
-                            <td className="border text-xs px-4 py-2"><div className="text" key={car.id} >
-
-                                {/* //TODO, MAKE READONLY SEPERATE FOR EACH */}
-                                {showMore ? car.description : `${car.description.substring(0, 50)}...`}
-                                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline mr-2" onClick={() => setShowMore(!showMore)}>
-                                    {showMore ? "show less" : "  read more"}
-                                </button>
-                            </div></td>
+                            <td className="border text-xs px-4 py-2">
+                                <div className="text" key={car.id}>
+                                    {showMoreMap[car.id] ? car.description : `${car.description.substring(0, 50)}...`}
+                                    <button
+                                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline mr-2"
+                                        onClick={() => toggleShowMore(car.id)}
+                                    >
+                                        {showMoreMap[car.id] ? "show less" : "read more"}
+                                    </button>
+                                </div>
+                            </td>
                             <td className="border px-4 py-2">{car.price}</td>
 
                             <td className="border px-4 py-2">

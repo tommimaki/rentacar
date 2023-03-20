@@ -40,13 +40,12 @@ function ReservationList({ reservations }: ReservationListProps) {
         setDisplayReservations(reservations);
     }, [reservations]);
 
-
     return (
+
         <div className="bg-gray-800 text-white p-6 rounded-md shadow-lg">
-
-
             {Array.isArray(displayReservations) ? (
-                <div className="grid  grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4">
+                <div className="grid  grid-cols-2 lg:grid-cols-4  gap-10">
+                    {/* <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-${displayReservations.length > 1 ? '4' : '2'} gap-x-8 gap-y-4 grid-auto-rows-auto`} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))' }}> */}
                     {displayReservations.map((reservation: unknown, index: number) => {
                         if (typeof reservation === "object" && reservation !== null) {
                             const { carMake, carModel, startDate, endDate, totalPrice, id } = reservation as Reservation;
@@ -54,7 +53,7 @@ function ReservationList({ reservations }: ReservationListProps) {
                             const formattedEndDate = new Date(endDate).toISOString().slice(0, 10);
 
                             return (
-                                <div key={index} className="border-b border-r border-gray-600 pb-4 mb-4">
+                                <div key={index} className="border-b border-r border-gray-600 p-5">
                                     <h3 className="text-xl font-bold mb-2">Reservation {index + 1}</h3>
                                     <p className="mb-2">Car Make: {carMake}</p>
                                     <p className="mb-2">Car model: {carModel}</p>
@@ -73,7 +72,10 @@ function ReservationList({ reservations }: ReservationListProps) {
                 <p>Loading reservations...</p>
             )}
         </div>
-    );
+
+
+    )
+
 
 }
 

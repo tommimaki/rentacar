@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import ReservationList from './Reservationlist';
 import { AuthContext } from '../context/authContext';
+import Footer from './Footer';
+
 
 interface UserData {
     first_name?: string;
@@ -90,93 +92,103 @@ const Profile = () => {
     }, [userId]);
 
     return (
-        <div className="mt-20 flex justify-center align-center">
-            {userData ? (
+        // <PageLayout>
 
-                <div className=" w-min  p-6 flex flex-col justify-center align-center rounded-md shadow-lg">
+        <div>
 
-                    <div>
-                        <h2 className="text- mb-4">
-                            user: {userData?.first_name} {userData?.last_name}
-                        </h2>
-                        <h2 className=" mb-4">
-                            email:  {userData?.email}
-                        </h2>
-                        <h2 className=" font-bold mb-4">
-                            phone:   {userData?.phonenumber}
-                        </h2>
-                        <button
-                            className="focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-4"
-                            onClick={() => setShowUpdateForm(!showUpdateForm)}
-                        >
-                            {showUpdateForm ? "Cancel" : "Update User Data"}
-                        </button>
-                    </div>
-                    {showUpdateForm && (
-                        <form className="mb-4">
+            <div className="mt-20 flex justify-center align-center">
+                {userData ? (
 
-                            <div className="flex flex-col mb-4">
-                                <label className="font-semibold mb-2" htmlFor="first-name-input">First Name:</label>
-                                <input
-                                    type="text"
-                                    id="first-name-input"
-                                    className="border rounded-md py-2 px-3"
-                                    value={userData.first_name}
-                                    onChange={(event) => setUserData({ ...userData, first_name: event.target.value })}
-                                />
-                            </div>
-                            <div className="flex flex-col mb-4">
-                                <label className="font-semibold mb-2" htmlFor="last-name-input">Last Name:</label>
-                                <input
-                                    type="text"
-                                    id="last-name-input"
-                                    className="border rounded-md py-2 px-3"
-                                    value={userData.last_name}
-                                    onChange={(event) => setUserData({ ...userData, last_name: event.target.value })}
-                                />
-                            </div>
-                            <div className="flex flex-col mb-4">
-                                <label className="font-semibold mb-2" htmlFor="email-input">Email:</label>
-                                <input
-                                    type="email"
-                                    id="email-input"
-                                    className="border rounded-md py-2 px-3"
-                                    value={userData.email}
-                                    onChange={(event) => setUserData({ ...userData, email: event.target.value })}
-                                />
-                            </div>
-                            <div className="flex flex-col mb-4">
-                                <label className="font-semibold mb-2" htmlFor="phone-number-input">Phone Number:</label>
-                                <input
-                                    type="tel"
-                                    id="phone-number-input"
-                                    className="border rounded-md py-2 px-3"
-                                    value={userData.phonenumber}
-                                    onChange={(event) => setUserData({ ...userData, phonenumber: event.target.value })}
-                                />
-                            </div>
-                            <div className="flex justify-between">
-                                <button
-                                    type="button"
-                                    className="focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-                                    onClick={() => updateUserData(userData)}
-                                >
-                                    Save
-                                </button>
-                            </div>
-
-                        </form>
-                    )}
+                    // <div className=" w-min  p-6 flex flex-col justify-center align-center rounded-md shadow-lg">
                     <div>
 
-                        <h2 className="text-2xl text-center font-bold mt-8 mb-4">Reservations:</h2>
-                        <ReservationList reservations={reservations} />
+                        <div>
+                            <h2 className="text- mb-4">
+                                user: {userData?.first_name} {userData?.last_name}
+                            </h2>
+                            <h2 className=" mb-4">
+                                email:  {userData?.email}
+                            </h2>
+                            <h2 className=" font-bold mb-4">
+                                phone:   {userData?.phonenumber}
+                            </h2>
+                            <button
+                                className="focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-4"
+                                onClick={() => setShowUpdateForm(!showUpdateForm)}
+                            >
+                                {showUpdateForm ? "Cancel" : "Update User Data"}
+                            </button>
+                        </div>
+                        {showUpdateForm && (
+                            <form className="mb-4">
+
+                                <div className="flex flex-col mb-4">
+                                    <label className="font-semibold mb-2" htmlFor="first-name-input">First Name:</label>
+                                    <input
+                                        type="text"
+                                        id="first-name-input"
+                                        className="border rounded-md py-2 px-3"
+                                        value={userData.first_name}
+                                        onChange={(event) => setUserData({ ...userData, first_name: event.target.value })}
+                                    />
+                                </div>
+                                <div className="flex flex-col mb-4">
+                                    <label className="font-semibold mb-2" htmlFor="last-name-input">Last Name:</label>
+                                    <input
+                                        type="text"
+                                        id="last-name-input"
+                                        className="border rounded-md py-2 px-3"
+                                        value={userData.last_name}
+                                        onChange={(event) => setUserData({ ...userData, last_name: event.target.value })}
+                                    />
+                                </div>
+                                <div className="flex flex-col mb-4">
+                                    <label className="font-semibold mb-2" htmlFor="email-input">Email:</label>
+                                    <input
+                                        type="email"
+                                        id="email-input"
+                                        className="border rounded-md py-2 px-3"
+                                        value={userData.email}
+                                        onChange={(event) => setUserData({ ...userData, email: event.target.value })}
+                                    />
+                                </div>
+                                <div className="flex flex-col mb-4">
+                                    <label className="font-semibold mb-2" htmlFor="phone-number-input">Phone Number:</label>
+                                    <input
+                                        type="tel"
+                                        id="phone-number-input"
+                                        className="border rounded-md py-2 px-3"
+                                        value={userData.phonenumber}
+                                        onChange={(event) => setUserData({ ...userData, phonenumber: event.target.value })}
+                                    />
+                                </div>
+                                <div className="flex justify-between">
+                                    <button
+                                        type="button"
+                                        className="focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                                        onClick={() => updateUserData(userData)}
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+
+                            </form>
+                        )}
+                        <div>
+
+                            <h2 className="text-2xl text-center font-bold mt-8 mb-4">Reservations:</h2>
+                            <ReservationList reservations={reservations} />
+                        </div>
                     </div>
-                </div>
-            ) : (
-                <p>Loading user data...</p>
-            )}
+                ) : (
+                    <p>Loading user data...</p>
+                )
+                }
+            </div >
+            <Footer />
         </div>
+        // {/* </PageLayout> */ }
+
     );
 
 };

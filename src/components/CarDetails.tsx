@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Reservation from './Reservation';
 import Calendar from './Calendar';
-
+import Footer from './Footer';
 
 
 
@@ -44,7 +44,7 @@ const CarDetails = () => {
     };
     return (
         <div>
-            <div className="bg-gray-100 rounded-lg overflow-hidden justify-center shadow-lg mx-4 my-8 md:mx-0 md:my-0 ">
+            <div className="bg-gray-100 rounded-lg overflow-hidden justify-center shadow-lg mt-10 my-8 md:mx-0 md:my-0 ">
                 <div className="relative">
                     <img
                         src={`http://localhost:3001${car.imageUrl}`}
@@ -76,6 +76,7 @@ const CarDetails = () => {
                     <Calendar carId={carId || ""} updateCalendar={updateCalendar} />
                 </div>
             </div>
+            <Footer />
         </div>
     );
 

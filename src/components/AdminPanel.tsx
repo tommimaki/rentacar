@@ -6,6 +6,7 @@ import CarTable from './CarTable';
 import UserList from "./UserList";
 import ReservationList from "./Reservationlist";
 import Reservation from './Reservation';
+import Footer from './Footer';
 
 
 
@@ -125,52 +126,57 @@ const AdminPanel: React.FC = () => {
 
 
     return (
-        <div className="min-h-screen bg-gray-800 text-white">
-            <h1 className="text-4xl font-bold py-8 text-center">Admin Panel</h1>
+        <div>
 
-            <div className="flex justify-center">
-                {showAddCarForm && <AddCarForm onCarAdded={handleCarAdded} />}
+            <div className="min-h-screen bg-gray-800 text-white">
+                <h1 className="text-4xl font-bold py-8 text-center">Admin Panel</h1>
 
-            </div>
-
-            <div className="mt-8" >
-                <div className="flex flex-col">
-
-                    <h2 className="text-2xl font-bold text-center">Rental Cars</h2>
-                    <button
-                        className="bg-blue-500 w-40 hover:bg-blue-700 text-white font-bold py-2  self-center px-4 rounded focus:outline-none focus:shadow-outline "
-                        onClick={() => setShowAddCarForm(!showAddCarForm)}
-                    >
-                        {showAddCarForm ? ' Cancel' : 'Add a new Car'}
-                    </button>
-                </div>
-                <div className="overflow-x-auto">
-                    <CarTable cars={cars} selectCar={selectCar} deleteCar={deleteCar} />
+                <div className="flex justify-center">
+                    {showAddCarForm && <AddCarForm onCarAdded={handleCarAdded} />}
 
                 </div>
+
+                <div className="mt-8" >
+                    <div className="flex flex-col">
+
+                        <h2 className="text-2xl font-bold text-center">Rental Cars</h2>
+                        <button
+                            className="bg-blue-500 w-40 hover:bg-blue-700 text-white font-bold py-2  self-center px-4 rounded focus:outline-none focus:shadow-outline "
+                            onClick={() => setShowAddCarForm(!showAddCarForm)}
+                        >
+                            {showAddCarForm ? ' Cancel' : 'Add a new Car'}
+                        </button>
+                    </div>
+                    <div className="overflow-x-auto">
+                        <CarTable cars={cars} selectCar={selectCar} deleteCar={deleteCar} />
+
+                    </div>
+                </div >
+                {selectedCar && (
+                    <UpdateCarForm
+                        make={make}
+                        model={model}
+                        year={year}
+                        description={description}
+                        price={price}
+                        onMakeChange={setMake}
+                        onModelChange={setModel}
+                        onYearChange={setYear}
+                        onDescriptionChange={setDescription}
+                        onPriceChange={setPrice}
+                        onUpdateCar={handleUpdate}
+                        onCancel={handleCancel}
+                    />
+                )}
+
+                <h1 className="text-2xl font-bold m-10 text-center"> users:</h1>
+                <UserList />
+                <h2 className="text-2xl font-bold m-10 text-center"> customer Reservations:</h2>
+                <ReservationList reservations={reservations} />
+
             </div >
-            {selectedCar && (
-                <UpdateCarForm
-                    make={make}
-                    model={model}
-                    year={year}
-                    description={description}
-                    price={price}
-                    onMakeChange={setMake}
-                    onModelChange={setModel}
-                    onYearChange={setYear}
-                    onDescriptionChange={setDescription}
-                    onPriceChange={setPrice}
-                    onUpdateCar={handleUpdate}
-                    onCancel={handleCancel}
-                />
-            )}
-
-            <h1 className="text-2xl font-bold m-10 text-center"> users:</h1>
-            <UserList />
-            <h2 className="text-2xl font-bold m-10 text-center"> customer Reservations:</h2>
-            <ReservationList reservations={reservations} />
-        </div >
+            <Footer />
+        </div>
     );
 };
 
