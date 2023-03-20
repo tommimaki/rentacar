@@ -95,10 +95,6 @@ const AdminPanel: React.FC = () => {
 
 
 
-
-
-
-
     return (
         <div className="min-h-screen bg-gray-800 text-white">
             <h1 className="text-4xl font-bold py-8 text-center">Admin Panel</h1>

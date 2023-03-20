@@ -53,7 +53,10 @@ const Profile = () => {
 
     useEffect(() => {
         fetchUserData();
-        fetchReservations();
+
+        if (userId) {
+            fetchReservations();
+        }
     }, [userId]);
     return (
         <div className="mt-20">

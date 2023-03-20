@@ -60,7 +60,7 @@ const CarDetails = () => {
                 <h2 className="text-2xl font-bold mb-2">${car.price} / päivä</h2>
                 <p>{car.description}</p>
             </div>
-            <Reservation carId={carId || ""} pricePerDay={Number(car.price)} onReservationSuccess={handleReservationSuccess} />
+            <Reservation carId={carId || ""} pricePerDay={Number(car.price)} onReservationSuccess={handleReservationSuccess} carMake={car.make} carModel={car.model} />
             <Calendar carId={carId || ""} updateCalendar={updateCalendar} />
         </div>
     );

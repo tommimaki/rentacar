@@ -4,11 +4,13 @@ import { AuthContext } from '../context/authContext';
 
 interface ReservationProps {
     carId: string;
+    carMake: string;
+    carModel: string;
     pricePerDay: number;
     onReservationSuccess: () => void;
 }
 
-function Reservation({ carId, pricePerDay, onReservationSuccess }: ReservationProps) {
+function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carModel }: ReservationProps) {
     const { userId } = useContext(AuthContext);
 
     const [startDate, setStartDate] = useState('');
@@ -88,7 +90,9 @@ function Reservation({ carId, pricePerDay, onReservationSuccess }: ReservationPr
             console.log(userId)
             const response = await axios.post(`http://localhost:3001/api/reservations`, {
                 user: userId,
-                car: carId,
+                carId: carId,
+                carMake: carMake,
+                carModel: carModel,
                 startDate,
                 endDate,
                 totalPrice,
