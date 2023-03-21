@@ -49,6 +49,12 @@ const UserList: React.FC = () => {
         }
     };
 
+
+    const handleUserUpdated = (updatedUser: User) => {
+        setUsers((prevState) =>
+            prevState.map((u) => (u.id === updatedUser.id ? updatedUser : u))
+        );
+    };
     const deleteUser = async (user: User) => {
 
         if (window.confirm(`Are you sure you want to remove user with email ${user.email}`)) {
@@ -100,8 +106,9 @@ const UserList: React.FC = () => {
             </table>
             {showEditForm && editUser && (
                 // Add your edit user form component here and pass the editUser and setShowEditForm as props.
-                <EditUserForm user={editUser} closeForm={() => setShowEditForm(false)} />
+                <EditUserForm user={editUser} closeForm={() => setShowEditForm(false)} onUserUpdated={handleUserUpdated} />
             )}
+
         </div>
     );
 

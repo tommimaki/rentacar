@@ -3,7 +3,6 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-// import { getReservations } from "../api/reservationApi";
 
 interface CalendarProps {
     carId: string;
@@ -41,7 +40,6 @@ const Calendar: React.FC<CalendarProps> = ({ carId, updateCalendar }) => {
 
     return (
         <div className="bg-gray-800">
-
             <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"

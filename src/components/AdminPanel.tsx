@@ -7,8 +7,6 @@ import UserList from "./UserList";
 import ReservationList from "./Reservationlist";
 import Footer from './Footer';
 
-
-
 export interface Car {
     id: string;
     make: string;
@@ -17,7 +15,6 @@ export interface Car {
     description: string;
     price: string,
     imageUrl: string;
-
 }
 
 const AdminPanel: React.FC = () => {
@@ -42,7 +39,6 @@ const AdminPanel: React.FC = () => {
             console.error("Error fetching cars:", error);
         }
     };
-
 
     const updateCar = async (car: Car) => {
         console.log(car)

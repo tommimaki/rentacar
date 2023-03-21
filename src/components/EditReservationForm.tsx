@@ -89,7 +89,6 @@ function EditReservationForm({ reservation, closeEditModal }: EditReservationFor
                 <label htmlFor="startDate" className="block text-black mb-2">End Date:</label>
                 <input type="date" min={updatedReservation.startDate} id="endDate" name="endDate" value={updatedReservation.endDate} onChange={handleChange} className="border border-gray-300 text-black p-2 rounded w-full" />
             </div>
-
             <div className="flex flex-row justify-end">
                 <button type="button" onClick={closeEditModal} className="focus:outline-none text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:ring-opacity-50 px-4 py-1 rounded mr-2">Cancel</button>
                 <button type="submit" className="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 focus:ring-opacity-50 px-4 py-1 rounded">Save</button>

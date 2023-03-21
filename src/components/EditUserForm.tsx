@@ -13,9 +13,11 @@ interface User {
 interface EditUserFormProps {
     user: User;
     closeForm: () => void;
+    onUserUpdated: (updatedUser: User) => void;
 }
 
-const EditUserForm: React.FC<EditUserFormProps> = ({ user, closeForm }) => {
+
+const EditUserForm: React.FC<EditUserFormProps> = ({ user, closeForm, onUserUpdated }) => {
     const [updatedUser, setUpdatedUser] = useState<User>(user);
 
     const handleInputChange = (
@@ -36,6 +38,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, closeForm }) => {
                 updatedUser
             );
             if (response.status === 200) {
+                onUserUpdated(response.data);
                 closeForm();
             }
         } catch (error) {
@@ -60,7 +63,49 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, closeForm }) => {
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                 </div>
-                {/* Add more input fields for last_name, email, phonenumber, and isAdmin */}
+                {/* Last Name */}
+                <div className="mb-4">
+                    <label htmlFor="last_name" className="block text-sm font-bold mb-2">
+                        Last Name:
+                    </label>
+                    <input
+                        type="text"
+                        name="last_name"
+                        id="last_name"
+                        value={updatedUser.last_name}
+                        onChange={handleInputChange}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                </div>
+                {/* Email */}
+                <div className="mb-4">
+                    <label htmlFor="email" className="block text-sm font-bold mb-2">
+                        Email:
+                    </label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={updatedUser.email}
+                        onChange={handleInputChange}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                </div>
+                {/* phone */}
+                <div className="mb-4">
+                    <label htmlFor="email" className="block text-sm font-bold mb-2">
+                        phonenumber:
+                    </label>
+                    <input
+                        type="phonenumber"
+                        name="phonenumber"
+                        id="phonenumber"
+                        value={updatedUser.phonenumber}
+                        onChange={handleInputChange}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                </div>
+
                 <button
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"

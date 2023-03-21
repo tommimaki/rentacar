@@ -3,15 +3,6 @@ import React, { useState, FormEvent, useCallback } from "react";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 
-interface Car {
-    id: string;
-    make: string;
-    model: string;
-    year: number;
-    description: string;
-    price: string;
-}
-
 interface AddCarFormProps {
     onCarAdded: () => void;
 }
@@ -24,20 +15,8 @@ const AddCarForm: React.FC<AddCarFormProps> = ({ onCarAdded }) => {
     const [price, setPrice] = useState("");
     const [image, setImage] = useState<File | null>(null);
 
-
-    // const handleSubmit = async (e: FormEvent) => {
-    //     e.preventDefault();
-    //     await addCar({ make, model, year: parseInt(year), description, price });
-    //     setMake("");
-    //     setModel("");
-    //     setYear("");
-    //     setDescription("");
-    //     setPrice("");
-    // };
-
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-
         const formData = new FormData();
         if (image) {
             formData.append("image", image);
@@ -54,7 +33,7 @@ const AddCarForm: React.FC<AddCarFormProps> = ({ onCarAdded }) => {
         setYear("");
         setDescription("");
         setPrice("");
-        setImage(null); // Add this line
+        setImage(null);
     };
 
     const addCar = async (formData: FormData) => {
@@ -70,20 +49,13 @@ const AddCarForm: React.FC<AddCarFormProps> = ({ onCarAdded }) => {
         }
     };
 
-
-
-
+    //image handler
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
-        // You can restrict file types or implement custom validations here
         const file = acceptedFiles[0];
         setImage(file);
     }, []);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
-
-
-
     return (
         <div className="flex justify-center">
             <form className="w-full max-w-md" onSubmit={handleSubmit}>

@@ -11,9 +11,8 @@ interface CarTableProps {
 }
 
 const CarTable: React.FC<CarTableProps> = ({ cars, selectCar, deleteCar }) => {
-    const [showMore, setShowMore] = useState(false);
+    // show more details button/function setup    
     const [showMoreMap, setShowMoreMap] = useState<{ [id: string]: boolean }>({});
-
 
     const toggleShowMore = (id: string) => {
         setShowMoreMap(prevState => ({
@@ -21,6 +20,7 @@ const CarTable: React.FC<CarTableProps> = ({ cars, selectCar, deleteCar }) => {
             [id]: !prevState[id]
         }));
     };
+
     return (
         <div className="overflow-x-auto">
             <table className="w-full text-center table-auto">
@@ -37,9 +37,6 @@ const CarTable: React.FC<CarTableProps> = ({ cars, selectCar, deleteCar }) => {
                 </thead>
                 <tbody>
                     {cars.map((car) => (
-
-
-
                         <tr className="bg-gray-600 text-gray-300" key={car.id}>
                             <td className="border px-4 py-2">{car.make}</td>
                             <td className="border px-4 py-2">{car.model}</td>
@@ -56,9 +53,7 @@ const CarTable: React.FC<CarTableProps> = ({ cars, selectCar, deleteCar }) => {
                                 </div>
                             </td>
                             <td className="border px-4 py-2">{car.price}</td>
-
                             <td className="border px-4 py-2">
-
                                 <button
                                     className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline mr-2"
                                     onClick={() => selectCar(car)}
@@ -76,7 +71,6 @@ const CarTable: React.FC<CarTableProps> = ({ cars, selectCar, deleteCar }) => {
                             <td className="border px-4 py-2">
                                 {car.imageUrl ? (
                                     <img className=" w-1/4 h-1/4" src={`http://localhost:3001${car.imageUrl}`} alt={`${car.make} ${car.model}`} />
-
                                 ) : (
                                     <td className="border px-4 py-2">No image</td>
                                 )}

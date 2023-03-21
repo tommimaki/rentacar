@@ -5,8 +5,6 @@ import Reservation from './Reservation';
 import Calendar from './Calendar';
 import Footer from './Footer';
 
-
-
 interface Car {
     id: string;
     make: string;
