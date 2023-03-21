@@ -92,11 +92,11 @@ const Profile = () => {
     }, [userId]);
 
     return (
-        // <PageLayout>
+
 
         <div>
 
-            <div className="mt-20 flex justify-center align-center">
+            <div className="mt-20 flex justify-center  min-h-screen align-center">
                 {userData ? (
 
                     // <div className=" w-min  p-6 flex flex-col justify-center align-center rounded-md shadow-lg">
@@ -187,7 +187,7 @@ const Profile = () => {
             </div >
             <Footer />
         </div>
-        // {/* </PageLayout> */ }
+
 
     );
 

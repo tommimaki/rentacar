@@ -2,9 +2,9 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div className='mt-6'>
+        <div className=''>
 
-            <footer className="rounded-lg h-fit shadow dark:bg-gray-800">
+            <footer className="h-fit shadow dark:bg-gray-800">
                 <div className="w-full mx-auto container md:p-6 p-4 md:flex md:items-center md:justify-between mt-auto">
                     <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
                         © 2023 All Rights Reserved.

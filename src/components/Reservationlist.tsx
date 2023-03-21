@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import EditReservationForm from './EditReservationForm';
+
 
 
 interface Reservation {
@@ -16,15 +18,12 @@ interface ReservationListProps {
     reservations: Reservation[];
 }
 
-
-
 function ReservationList({ reservations }: ReservationListProps) {
     const [displayReservations, setDisplayReservations] = useState<Reservation[]>([]);
+    const [editingReservation, setEditingReservation] = useState<Reservation | null>(null);
 
     const deleteReservation = async (id: string, carMake: string, carModel: string) => {
-
         if (window.confirm(`Are you sure you want to cancel your reservation for the ${carMake} ${carModel}? It's a stellar car`)) {
-
             try {
                 await axios.delete(`http://localhost:3001/api/reservations/${id}`);
                 console.log(id + ' deleted')
@@ -34,6 +33,14 @@ function ReservationList({ reservations }: ReservationListProps) {
                 console.error("Error deleting reservation:", error);
             }
         }
+    };
+
+    const editReservation = (reservation: Reservation) => {
+        setEditingReservation(reservation);
+    };
+
+    const closeEditModal = () => {
+        setEditingReservation(null);
     };
 
     useEffect(() => {
@@ -60,23 +67,42 @@ function ReservationList({ reservations }: ReservationListProps) {
                                     <p className="mb-2">Start Date: {formattedStartDate}</p>
                                     <p className="mb-2">End Date: {formattedEndDate}</p>
                                     <p className="mb-2">Total Price: {`${totalPrice}€`}</p>
-                                    <button className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 md:mb-0 md:mr-2" onClick={() => deleteReservation(id, carMake, carModel)}>Delete</button>
+                                    <div className="flex flex-row justify-end">
+                                        <button className="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:
+
+ring-yellow-300 focus:ring-opacity-50 px-4 py-1 rounded mr-2" onClick={() => editReservation(reservation as Reservation)}>Edit</button>
+                                        <button className="focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 focus:ring-opacity-50 px-4 py-1 rounded" onClick={() => deleteReservation(id, carMake, carModel)}>Cancel</button>
+                                    </div>
                                 </div>
                             );
                         }
-
                         return null;
                     })}
                 </div>
             ) : (
-                <p>Loading reservations...</p>
+                <div className="text-center">
+                    <p>No reservations found.</p>
+                </div>
+            )}
+            {editingReservation && (
+                <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-md shadow-lg w-full max-w-md">
+                        {editingReservation && (
+                            <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+                                <div className="bg-white p-6 rounded-md shadow-lg w-full max-w-md">
+                                    <EditReservationForm
+                                        reservation={editingReservation as Reservation}
+                                        closeEditModal={closeEditModal}
+                                    />
+                                </div>
+                            </div>
+                        )}
+
+                    </div>
+                </div>
             )}
         </div>
-
-
-    )
-
-
+    );
 }
 
 export default ReservationList;
