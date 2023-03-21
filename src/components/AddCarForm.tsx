@@ -38,7 +38,7 @@ const AddCarForm: React.FC<AddCarFormProps> = ({ onCarAdded }) => {
 
     const addCar = async (formData: FormData) => {
         try {
-            await axios.post("http://localhost:3001/api/cars", formData, {
+            await axios.post("https://carback.fly.dev/api/cars", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

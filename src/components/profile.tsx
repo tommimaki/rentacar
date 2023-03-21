@@ -35,7 +35,7 @@ const Profile = () => {
 
         console.log(userId + ' userID')
 
-        const response = await fetch(`http://localhost:3001/api/users/${userId}`, {
+        const response = await fetch(`https://carback.fly.dev/api/users/${userId}`, {
 
         });
 
@@ -50,7 +50,7 @@ const Profile = () => {
 
     const updateUserData = async (updatedData: UserData) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/users/${userId}`, {
+            const response = await fetch(`https://carback.fly.dev/api/users/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -72,7 +72,7 @@ const Profile = () => {
 
 
     const fetchReservations = async () => {
-        const response = await fetch(`http://localhost:3001/api/reservations/user/${userId}`);
+        const response = await fetch(`https://carback.fly.dev/api/reservations/user/${userId}`);
 
         console.log("Reservations response:", response);
 
@@ -98,10 +98,7 @@ const Profile = () => {
 
             <div className="mt-20 flex justify-center  min-h-screen align-center">
                 {userData ? (
-
-                    // <div className=" w-min  p-6 flex flex-col justify-center align-center rounded-md shadow-lg">
                     <div>
-
                         <div>
                             <h2 className="text- mb-4">
                                 user: {userData?.first_name} {userData?.last_name}
@@ -187,9 +184,6 @@ const Profile = () => {
             </div >
             <Footer />
         </div>
-
-
     );
-
 };
 export default Profile;

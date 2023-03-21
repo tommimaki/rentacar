@@ -24,7 +24,7 @@ const CarDetails = () => {
     useEffect(() => {
         const fetchCar = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/cars/${carId}`);
+                const response = await axios.get(`https://carback.fly.dev/api/cars/${carId}`);
                 setCar(response.data);
             } catch (error) {
                 console.error(`Error fetching car with ID ${carId}:`, error);
@@ -45,7 +45,7 @@ const CarDetails = () => {
             <div className="bg-gray-100 rounded-lg overflow-hidden justify-center shadow-lg mt-10 my-8 md:mx-0 md:my-0 ">
                 <div className="relative">
                     <img
-                        src={`http://localhost:3001${car.imageUrl}`}
+                        src={`https://carback.fly.dev${car.imageUrl}`}
                         alt={`${car.make} ${car.model}`}
                         className="h-auto w-full object-cover max-h-screen max-h-3/4"
                     />

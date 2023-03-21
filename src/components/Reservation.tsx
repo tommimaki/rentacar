@@ -12,7 +12,6 @@ interface ReservationProps {
 
 function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carModel }: ReservationProps) {
     const { userId } = useContext(AuthContext);
-
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [totalPrice, setTotalPrice] = useState('');
@@ -21,7 +20,7 @@ function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carMod
     useEffect(() => {
         const fetchReservations = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/reservations/car/${carId}`);
+                const response = await axios.get(`https://carback.fly.dev/api/reservations/car/${carId}`);
                 if (response.status === 200) {
                     setReservations(response.data);
                 } else {
@@ -46,9 +45,6 @@ function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carMod
             return (newStart >= existingStart && newStart < existingEnd) || (newEnd > existingStart && newEnd <= existingEnd) || (newStart <= existingStart && newEnd >= existingEnd);
         });
     };
-
-
-
 
     const calculateTotalPrice = (start: string, end: string) => {
         if (start && end) {
@@ -101,11 +97,9 @@ function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carMod
             console.log('Reservation created:', response.data);
             // Display dialog to notify customer of reservation and how to access it
             window.alert('Your reservation has been made! You can view your reservation details in your user profile.');
-            // Reset form fields to their default/empty state
             setStartDate('');
             setEndDate('');
             setTotalPrice('');
-
         } catch (error) {
             console.error('Error creating reservation:', error);
         }
@@ -113,13 +107,9 @@ function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carMod
 
 
     return (
-
         <div>
-
             <form onSubmit={handleSubmit} className="bg-gray-900 p-6 rounded-lg">
                 <h2 className="text-2xl text-white font-bold mb-4">Create Reservation</h2>
-
-
                 <div className="flex flex-col mb-4">
                     <label htmlFor="start-date" className="text-white font-bold mb-2">
                         Start Date:
@@ -150,9 +140,7 @@ function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carMod
                     <label htmlFor="total-price" className="text-white font-bold mb-2">
                         <h3>  Total Price:  {totalPrice} € </h3>
                     </label>
-
                 </div>
-
                 <button type="submit" className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
                     Create Reservation
                 </button>

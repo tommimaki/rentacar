@@ -25,7 +25,7 @@ function ReservationList({ reservations }: ReservationListProps) {
     const deleteReservation = async (id: string, carMake: string, carModel: string) => {
         if (window.confirm(`Are you sure you want to cancel your reservation for the ${carMake} ${carModel}? It's a stellar car`)) {
             try {
-                await axios.delete(`http://localhost:3001/api/reservations/${id}`);
+                await axios.delete(`https://carback.fly.dev/api/reservations/${id}`);
                 console.log(id + ' deleted')
                 const updatedReservations = displayReservations.filter((reservation) => reservation.id !== id);
                 setDisplayReservations(updatedReservations);
@@ -68,9 +68,7 @@ function ReservationList({ reservations }: ReservationListProps) {
                                     <p className="mb-2">End Date: {formattedEndDate}</p>
                                     <p className="mb-2">Total Price: {`${totalPrice}€`}</p>
                                     <div className="flex flex-row justify-end">
-                                        <button className="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:
-
-ring-yellow-300 focus:ring-opacity-50 px-4 py-1 rounded mr-2" onClick={() => editReservation(reservation as Reservation)}>Edit</button>
+                                        <button className="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 focus:ring-opacity-50 px-4 py-1 rounded mr-2" onClick={() => editReservation(reservation as Reservation)}>Edit</button>
                                         <button className="focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 focus:ring-opacity-50 px-4 py-1 rounded" onClick={() => deleteReservation(id, carMake, carModel)}>Cancel</button>
                                     </div>
                                 </div>

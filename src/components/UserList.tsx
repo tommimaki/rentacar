@@ -18,10 +18,9 @@ const UserList: React.FC = () => {
     const [editUser, setEditUser] = useState<User | null>(null);
     const [showEditForm, setShowEditForm] = useState(false);
 
-
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/api/users');
+            const response = await axios.get('https://carback.fly.dev/api/users');
             setUsers(response.data);
         } catch (error) {
             console.error('Error fetching users:', error);
@@ -36,7 +35,7 @@ const UserList: React.FC = () => {
         const updatedUser = { ...user, isAdmin: !user.isAdmin };
         try {
             const response = await axios.put(
-                `http://localhost:3001/api/users/${user.id}`,
+                `https://carback.fly.dev/api/users/${user.id}`,
                 updatedUser
             );
             if (response.status === 200) {
@@ -49,19 +48,17 @@ const UserList: React.FC = () => {
         }
     };
 
-
     const handleUserUpdated = (updatedUser: User) => {
         setUsers((prevState) =>
             prevState.map((u) => (u.id === updatedUser.id ? updatedUser : u))
         );
     };
+
     const deleteUser = async (user: User) => {
-
         if (window.confirm(`Are you sure you want to remove user with email ${user.email}`)) {
-
             try {
                 const response = await axios.delete(
-                    `http://localhost:3001/api/users/${user.id}`
+                    `https://carback.fly.dev/api/users/${user.id}`
                 );
                 if (response.status === 200) {
                     setUsers((prevState) =>
@@ -105,7 +102,6 @@ const UserList: React.FC = () => {
                 </tbody>
             </table>
             {showEditForm && editUser && (
-                // Add your edit user form component here and pass the editUser and setShowEditForm as props.
                 <EditUserForm user={editUser} closeForm={() => setShowEditForm(false)} onUserUpdated={handleUserUpdated} />
             )}
 

@@ -6,8 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const navigate = useNavigate();
-
-
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
@@ -24,7 +22,7 @@ const Register = () => {
 
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/api/users', {
+            const response = await fetch('https://carback.fly.dev/api/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,11 +39,9 @@ const Register = () => {
             } else {
                 const error = await response.json();
                 console.error('Error creating user:', error);
-                // Display an error message to the user
             }
         } catch (error) {
             console.error('Error creating user:', error);
-            // Display an error message to the user
         }
     };
 

@@ -1,14 +1,12 @@
 import React, { useState, ChangeEvent, useContext, FormEvent } from 'react';
 import Footer from './Footer';
 import jwtDecode from "jwt-decode";
-
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 
 interface DecodedToken {
     isAdmin: boolean;
     id: string
-    // Add any other properties from your decoded token here
 }
 
 
@@ -16,10 +14,6 @@ const SignIn = () => {
 
     const navigate = useNavigate();
     const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
-
-    const storeToken = (token: string) => {
-        localStorage.setItem('userToken', token);
-    };
 
 
     const [formData, setFormData] = useState({
@@ -52,23 +46,17 @@ const SignIn = () => {
                 // SignIn.tsx
                 sessionStorage.setItem("userId", decodedToken.id);
                 console.log("Stored userId:", decodedToken.id); // Add this line to check the stored userId
-
-
                 navigate("/");
                 setLoggedIn(true, decodedToken.isAdmin, decodedToken.id);
-
-
                 console.log("User is admin:", isAdmin);
                 console.log("Token:", token);
             } else {
                 const error = await response.json();
                 console.error("Error authenticating user:", error);
-
                 // Display an error message to the user
             }
         } catch (error) {
             console.error("Error authenticating user:", error);
-
             // Display an error message to the user
         }
     };

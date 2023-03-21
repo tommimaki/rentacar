@@ -34,7 +34,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, closeForm, onUserUpda
         event.preventDefault();
         try {
             const response = await axios.put(
-                `http://localhost:3001/api/users/${updatedUser.id}`,
+                `https://carback.fly.dev/api/users/${updatedUser.id}`,
                 updatedUser
             );
             if (response.status === 200) {

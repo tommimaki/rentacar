@@ -15,7 +15,7 @@ const Calendar: React.FC<CalendarProps> = ({ carId, updateCalendar }) => {
         const fetchData = async () => {
             try {
                 console.log(carId)
-                const response = await fetch(`http://localhost:3001/api/reservations/car/${carId}`);
+                const response = await fetch(`https://carback.fly.dev/api/reservations/car/${carId}`);
                 if (response.ok) {
                     const reservationsData = await response.json();
                     setReservations(reservationsData);

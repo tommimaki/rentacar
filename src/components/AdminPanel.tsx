@@ -32,7 +32,7 @@ const AdminPanel: React.FC = () => {
 
     const fetchCars = async () => {
         try {
-            const response = await axios.get("http://localhost:3001/api/cars");
+            const response = await axios.get("https://carback.fly.dev/api/cars");
             setCars(response.data);
 
         } catch (error) {
@@ -43,7 +43,7 @@ const AdminPanel: React.FC = () => {
     const updateCar = async (car: Car) => {
         console.log(car)
         try {
-            await axios.put(`http://localhost:3001/api/cars/${car.id}`, { make, model, year, description, price });
+            await axios.put(`https://carback.fly.dev/api/cars/${car.id}`, { make, model, year, description, price });
             fetchCars();
         } catch (error) {
             console.error("Error updating car:", error);
@@ -53,7 +53,7 @@ const AdminPanel: React.FC = () => {
     const deleteCar = async (carId: string) => {
         if (window.confirm(`Are you sure you want to the car?`)) {
             try {
-                await axios.delete(`http://localhost:3001/api/cars/${carId}`);
+                await axios.delete(`https://carback.fly.dev/api/cars/${carId}`);
                 console.log(carId + ' deleted')
                 fetchCars();
             } catch (error) {
@@ -102,7 +102,7 @@ const AdminPanel: React.FC = () => {
 
 
     const fetchReservations = async () => {
-        const response = await fetch(`http://localhost:3001/api/reservations`);
+        const response = await fetch(`https://carback.fly.dev/api/reservations`);
 
         console.log("Reservations response:", response);
 
