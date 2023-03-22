@@ -15,7 +15,7 @@ const SignIn = () => {
 
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
-    const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
+    const { setLoggedIn } = useContext(AuthContext);
 
 
     const [formData, setFormData] = useState({

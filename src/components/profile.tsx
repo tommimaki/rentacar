@@ -89,6 +89,7 @@ const Profile = () => {
         if (userId) {
             fetchReservations();
         }
+        /* eslint-disable react-hooks/exhaustive-deps */
     }, [userId]);
 
     return (
