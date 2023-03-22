@@ -15,9 +15,9 @@
 ## Websites for a luxury car rental, front end built mainly with React and Tailwind.
 
 ### Features
-*Crud functions for reservations, users, and cars.
-*car rental, calendar to show when cars are available.
-*user authentication
+* Crud functions for reservations, users, and cars.
+* car rental, calendar to show when cars are available.
+* user authentication
 
 # Getting Started with Create React App
 
