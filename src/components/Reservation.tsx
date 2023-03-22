@@ -72,7 +72,7 @@ function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carMod
         }
         setTotalPrice(calculateTotalPrice(startDate, endDate).toString());
 
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [startDate, endDate, pricePerDay]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

@@ -5,7 +5,6 @@ import './App.css';
 import LandingPage from './components/landingPage';
 import About from './components/about'
 import CarDetails from './components/CarDetails';
-import Footer from './components/Footer';
 import Header from './components/header';
 import Cars from './components/Cars';
 import Register from './components/Register';
@@ -13,6 +12,8 @@ import Signin from './components/Signin';
 import Profile from './components/profile';
 import AuthProvider from './context/authContext';
 import AdminPanel from './components/AdminPanel';
+
+import DemoLogin from './components/DemoLogin';
 
 
 function App() {
@@ -33,13 +34,12 @@ function App() {
                 <Route path="/Register" element={<Register />} />
                 <Route path="/Signin" element={<Signin />} />
                 <Route path="/Profile" element={<Profile />} />
-
+                <Route path="/demo-login" element={<DemoLogin />} />
                 <Route path="/cars/:carId" element={<CarDetails />} />
               </Routes>
             </div>
           </div>
         </div>
-        {/* <Footer /> */}
       </BrowserRouter >
     </AuthProvider >
   );
