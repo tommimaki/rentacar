@@ -10,9 +10,11 @@ interface DecodedToken {
 }
 
 
+
 const SignIn = () => {
 
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('');
     const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
 
 
@@ -28,7 +30,7 @@ const SignIn = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:3001/api/auth", {
+            const response = await fetch("https://carback.fly.dev/api/auth", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -53,6 +55,7 @@ const SignIn = () => {
             } else {
                 const error = await response.json();
                 console.error("Error authenticating user:", error);
+                setErrorMessage('Error signing in user. Please try again.');
                 // Display an error message to the user
             }
         } catch (error) {
@@ -67,6 +70,7 @@ const SignIn = () => {
             <div className="container h-screen mx-auto mt-20 my-8">
                 <h2 className="text-2xl mb-4">Sign In</h2>
                 <form onSubmit={handleSubmit}>
+                    {errorMessage && <p className="text-red-600 mb-4">{errorMessage}</p>}
                     <div className="mb-4">
                         <label htmlFor="email" className="block mb-1">Email</label>
                         <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded" />

@@ -70,7 +70,7 @@ const CarTable: React.FC<CarTableProps> = ({ cars, selectCar, deleteCar }) => {
                             </td>
                             <td className="border px-4 py-2">
                                 {car.imageUrl ? (
-                                    <img className=" w-1/4 h-1/4" src={`http://localhost:3001${car.imageUrl}`} alt={`${car.make} ${car.model}`} />
+                                    <img className=" w-1/4 h-1/4" src={`https://carback.fly.dev${car.imageUrl}`} alt={`${car.make} ${car.model}`} />
                                 ) : (
                                     <td className="border px-4 py-2">No image</td>
                                 )}

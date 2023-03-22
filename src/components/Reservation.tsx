@@ -16,6 +16,7 @@ function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carMod
     const [endDate, setEndDate] = useState('');
     const [totalPrice, setTotalPrice] = useState('');
     const [reservations, setReservations] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const fetchReservations = async () => {
@@ -77,6 +78,11 @@ function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carMod
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+
+        if (!userId) {
+            setErrorMessage('You must be logged in to rent a car.');
+            return;
+        }
         if (hasConflictingReservation()) {
             alert('The selected dates are already booked. Please choose different dates.');
             return;
@@ -108,6 +114,11 @@ function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carMod
 
     return (
         <div>
+            {errorMessage && (
+                <div className="bg-red-500 text-white p-3 rounded-md mb-4">
+                    {errorMessage}
+                </div>
+            )}
             <form onSubmit={handleSubmit} className="bg-gray-900 p-6 rounded-lg">
                 <h2 className="text-2xl text-white font-bold mb-4">Create Reservation</h2>
                 <div className="flex flex-col mb-4">
