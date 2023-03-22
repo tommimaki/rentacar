@@ -12,12 +12,14 @@
 
 
 
-## Websites for a luxury car rental, front end built mainly with React and Tailwind.
+## Website for a luxury car rental, front end built mainly with React and Tailwind.
+find backend repo here: https://github.com/tommimaki/rentacarbackend
 
 ### Features
 * Crud functions for reservations, users, and cars.
-* car rental, calendar to show when cars are available.
+* Choose a car and create reservation, calendar shows when cars are available.
 * user authentication
+* Admin panel for user, reservation and car management
 
 # Getting Started with Create React App
 
