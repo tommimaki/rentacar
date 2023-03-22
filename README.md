@@ -1,6 +1,8 @@
 # RentACar Portfolio FullStack Project using MERN stack.
 
 <img width="1440" alt="image" src="https://user-images.githubusercontent.com/74586216/226900906-b05be028-786e-452b-89ad-d81f9edc675b.png">
+<img width="1440" alt="image" src="https://user-images.githubusercontent.com/74586216/226902002-d44bc442-f31b-4356-b9b7-0125b72a5c6d.png">
+
 
 
 
@@ -12,6 +14,8 @@
 
 ### Features
 *Crud functions for reservations, users, and cars.
+*car rental, calendar to show when cars are available.
+*user authentication
 
 # Getting Started with Create React App
 
