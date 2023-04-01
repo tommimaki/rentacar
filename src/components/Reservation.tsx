@@ -90,7 +90,7 @@ function Reservation({ carId, pricePerDay, onReservationSuccess, carMake, carMod
 
         try {
             console.log(userId)
-            const response = await axios.post(`http://localhost:3001/api/reservations`, {
+            const response = await axios.post(`https://carback.fly.dev/api/reservations`, {
                 user: userId,
                 carId: carId,
                 carMake: carMake,
