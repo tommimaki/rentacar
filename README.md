@@ -18,7 +18,8 @@ find backend repo here: https://github.com/tommimaki/rentacarbackend
 ### Features
 * Crud functions for reservations, users, and cars.
 * Choose a car and create reservation, calendar shows when cars are available.
-* user authentication
+* user profile for user data and resevations
+* user creation/authentication
 * Admin panel for user, reservation and car management
 
 # Getting Started with Create React App
