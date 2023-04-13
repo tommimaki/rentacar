@@ -83,6 +83,11 @@ const Header = () => {
                         >
                             Cars
                         </Link>
+                        {isAdmin && (
+                            <Link to="/Adminpanel" className="text-xl  text-shadow shadow-white  font-bold">
+                                Admin Panel
+                            </Link>
+                        )}
                         {isLoggedIn ? (
                             <>
                                 <Link
