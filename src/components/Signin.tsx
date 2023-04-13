@@ -45,24 +45,57 @@ const SignIn = () => {
                 const isAdmin = decodedToken.isAdmin !== undefined ? decodedToken.isAdmin : false;
 
                 sessionStorage.setItem("userToken", token);
-                // SignIn.tsx
                 sessionStorage.setItem("userId", decodedToken.id);
-                console.log("Stored userId:", decodedToken.id); // Add this line to check the stored userId
+                console.log("Stored userId:", decodedToken.id);
                 navigate("/");
                 setLoggedIn(true, decodedToken.isAdmin, decodedToken.id);
                 console.log("User is admin:", isAdmin);
                 console.log("Token:", token);
             } else {
-                const error = await response.json();
-                console.error("Error authenticating user:", error);
+                console.error("Error authenticating user:", data);
                 setErrorMessage('Error signing in user. Please try again.');
-                // Display an error message to the user
             }
         } catch (error) {
             console.error("Error authenticating user:", error);
-            // Display an error message to the user
         }
     };
+
+    // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     try {
+    //         const response = await fetch("https://carback.fly.dev/api/auth", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify(formData),
+    //         });
+    //         const data = await response.json();
+
+    //         if (response.ok) {
+    //             const { token } = data;
+    //             const decodedToken = jwtDecode(token) as DecodedToken;
+    //             const isAdmin = decodedToken.isAdmin !== undefined ? decodedToken.isAdmin : false;
+
+    //             sessionStorage.setItem("userToken", token);
+    //             // SignIn.tsx
+    //             sessionStorage.setItem("userId", decodedToken.id);
+    //             console.log("Stored userId:", decodedToken.id); // Add this line to check the stored userId
+    //             navigate("/");
+    //             setLoggedIn(true, decodedToken.isAdmin, decodedToken.id);
+    //             console.log("User is admin:", isAdmin);
+    //             console.log("Token:", token);
+    //         } else {
+    //             const error = await response.json();
+    //             console.error("Error authenticating user:", error);
+    //             setErrorMessage('Error signing in user. Please try again.');
+    //             // Display an error message to the user
+    //         }
+    //     } catch (error) {
+    //         console.error("Error authenticating user:", error);
+    //         // Display an error message to the user
+    //     }
+    // };
 
     return (
         <div>
